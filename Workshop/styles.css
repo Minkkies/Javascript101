@@ -2,7 +2,7 @@
 /* 1. แต่งใคร ? (id, class, DOM) 2. แต่งอะไร ? */
 @font-face {
   font-family: 'kanit';
-  src: url('./Kanit/Kanit-Regular.ttf');
+  src: url('./Kanit/Kanit-Regular.ttf');/*ไม่ได้โหลดฟอน๖ืมาเลยไม่ขึ้น*/
 }
 
 body {

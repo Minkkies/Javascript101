@@ -28,6 +28,7 @@
       <input class="form" name="age" type="number" min="0" max="100">
     </div>
     <div class="flex gender form-input">
+      <!-- radio คือเลือกได้ทีละตัว -->
       <div class="header-form">เพศ</div>
       <div class="flex">
         <div>
@@ -43,6 +44,7 @@
     </div>
     <div class="form-input">
       สิ่งที่สนใจ
+      <!-- checkbox คือเลือกได้หลายตัว -->
       <div>
         <input name="interest" type="checkbox" value="หนังสือ"> หนังสือ
       </div>
@@ -55,6 +57,7 @@
     </div>
     <div class="form-input">
       คำอธิบายตัวตนเพิ่มเติม
+      <!-- textarea คือกล่องข้อความที่พิมพ์ได้หลายบรรทัด -->
       <div>
         <textarea name="description"></textarea>
       </div>
@@ -66,6 +69,7 @@
       <button onclick="submitData()" class="button">ส่งข้อมูล</button>
     </div>
   </div>
+  <!--เพิ่ม js จากไฟล์อื่นเข้ามา-->
   <script src="index.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@ Document from: [Mikelopster](https://www.youtube.com/watch?v=XQdyV_x4UKA&list=PL
 
 <hr>
 
+# Basic command
 ## `<script>`
 สำหรับใช้งาน javascript นั้นปกติจะมี 2 ตำแหน่งที่สามารถวางได้
 
@@ -391,27 +392,29 @@ let hightScore = stds.filter((s) => {
 })
 console.log('hight Score:', hightScore)
 ```
----------------------------------
+
+
 # Javascript & Html
 ห้วข้อนี้เราจะพูดถึงการที่ javascript สามารถสื่อสารกับ html (DOM) ได้ 
 ปกติเราจะแบ่งไอเดียง่ายๆออกเป็น 2 แบบคือ
 1. javascript access ไปยัง html (DOM)
 2. html ส่ง Event ไปยัง javascript
 
-# Select DOM
-### Idea การ select dom
+# Select DOM มี 4 แบบ
+## Idea การ select dom
 การสื่อสารประเภทแรกคือ การสื่อสารจาก javascript เลือกไปยัง html โดย เราจะต้องเลือกเป้าหมาย 2 อย่างก่อนคือ
+ 1. เลือกใคร (html element ตัวไหน)
+ 2. ทำอะไร (เช่น ดึงค่าออกมา, แทนค่า)
 
-1. เลือกใคร (html element ตัวไหน)
-2. ทำอะไร (เช่น ดึงค่าออกมา, แทนค่า)
+## 1. document.getElementById("..") ใส่ id กำกับใน html เพื่อทำการดึงค่าออกมา
 
-# วิธี Select DOM แต่ละประเภท
-การ Select ไปยัง DOM html ทำได้ผ่านตัวแปร document ซึ่งเป็นตัวแปรที่ใช้สื่อสารระหว่าง javascript และ content ใน page (ซึ่งในที่นี้คือ HTML)
-
-1. **document.getElementById** ใส่ id กำกับใน html เพื่อทำการดึงค่าออกมา
+**step**
+* ```id="firstname" ``` เข้าถึง id 
+* สร้างตัวแปรมาเก็บค่าที่ select ```let firstnameDOM = document.getElementById('firstname')```
+* ```firstnameDOM.value``` ใช้  ```.value``` เพื่อเข้าถึงค่าใน DOM ออกมา
 
 *`ตัวอย่าง`* ใส่ id ใน input text firstname เพื่อทำการใช้ระบุสำหรับดึง value
-````
+````js
 <input id="firstname" type="text" name="firstname" value="ทดสอบ">
 
 ... 
@@ -425,10 +428,10 @@ console.log('firstname DOM', firstname)
 console.log('firstname DOM', firstname.value)
 </script>
 ````
-2. **document.getElementByClassname** ใส่ class กำกับใน html เพื่อทำการดึงค่าออกมา
+## 2. document.getElementByClassname ใส่ class กำกับใน html เพื่อทำการดึงค่าออกมา
 
 *`ตัวอย่าง`* ใส่ class กำกับไว้กับ input type checkbox 2 ตัวชื่อ "interest" แล้วดึงค่า value จาก checkbox ออกมา
-````
+````js
 <input class="interest" type="checkbox" name="interest" value="หนังสือ"> หนังสือ
 <input class="interest" type="checkbox" name="interest" value="กีฬา"> กีฬา
 
@@ -445,10 +448,11 @@ for (let i = 0; i < interests.length; i++) {
 
 </script>
 ````
-3. **document.querySelector** สำหรับ select ตาม CSS Selector แบบเดียวกับ CSS แต่เลือกเป็นตัวเดียว(อ่านเพิ่มเติม CSS Selector)
+
+## 3. document.querySelector สำหรับ select ตาม CSS Selector แบบเดียวกับ CSS แต่เลือกเป็นตัวเดียว(อ่านเพิ่มเติม CSS Selector)
 
 *`ตัวอย่าง`* ตามด้านล่าง ต้องการเลือกไปยัง element input ที่มี Attribute type=text ตัว firstname
-````
+```js
 <!-- การใส่ value ใน input text = การใส่ค่า default ของกล่องนั้นเข้าไป -->
 ชื่อจริง <input type="text" name="firstname" value="ชื่อ"> <br>
 ...
@@ -458,11 +462,11 @@ let inputText = document.querySelector('input[type=text]')
 // ดึงค่า value จาก inputText
 console.log('input value', inputText.value)
 </script>
-````
-4. **document.querySelectorAll** สำหรับ select ตาม CSS Selector แบบเดียวกับ CSS แต่เลือกเป็นหลายตัวได้ (อ่านเพิ่มเติม CSS Selector)
+```
+## 4. document.querySelectorAll สำหรับ select ตาม CSS Selector แบบเดียวกับ CSS แต่เลือกเป็นหลายตัวได้ (อ่านเพิ่มเติม CSS Selector)
 
 *`ตัวอย่าง`* ตามด้านล่าง ต้องการเลือกไปยัง element input type=radio ทั้ง 3 ตัว โดยที่ดึง value ออกมาแสดง
-````
+```js
 <input type="radio" name="gender" value="ชาย"> ชาย
 <input type="radio" name="gender" value="หญิง"> หญิง
 <input type="radio" name="gender" value="ไม่ระบุ"> ไม่ระบุ
@@ -477,4 +481,274 @@ for (let i = 0; i < inputsRadio.length; i++) {
     console.log('input value', inputsRadio[i].value)
 }
 </script>
-````
+```
+
+# Javascript Event
+Event คือสิ่งที่เกิดขึ้นบนเว็บไซต์ซึ่งเกิดอาจจะเกิดจากเหตุการณ์บน browser (เช่น โหลดเว็บเสร็จ, resize หน้าจอ) หรือ เหตุการณ์จาก user เช่น
+* เมื่อคลิกที่ปุ่มแล้วเกิดอะไรขึ้น (onclick)
+* เมื่อ user กำลังเปลี่ยนของใน radio (onchange)
+* เมื่อ user กำลังพิมพ์ที่กล่องข้อความให้เกิดอะไรขึ้น (onkeydown)
+* เมื่อ user เอาเมาส์วางบนข้อความเกิดอะไรขึ้น (onmouseover)
+
+## 1. onclick 
+* การดักจับ event เมื่อ user มีการคลิกที่ element ใน html
+
+*`ตัวอย่าง`* เพิ่ม onclick ให้กับ button เมื่อ button โดนกดโดย user จะแสดงข้อความออกมาตรง console.log
+
+**step**
+1. ใส่ ``` onclick="userClick()"``` ใน DOM ที่ต้องการดัก
+2. ไปสร้าง function ที่ js ให้ชื่อเหมือนกัน ```userClick()```
+
+```html
+    <button onclick="userClick()">ทดลองกด</button>
+    
+    <script>
+        // สร้าง function สำหรับการรับ Event ชื่อ userClick และ function นี้จะถูกเรียกเมื่อ onclick ทำงาน
+        function userClick() {
+            console.log('user clicked')//แสดงที่คอนโซล
+        }
+    </script>
+```
+
+## 2. onchange
+* การดักจับเมื่อ input มีการเปลี่ยนแปลงค่า (ปกติใช้ได้กับ input อย่าง text, radio, checkbox)
+*  radio ต้องใช้ name เดียวกันไม่งั้นจะเลือกได้ > 1
+
+
+*`ตัวอย่าง`* เพิ่ม onchange ให้กับ radio เพศ โดยเมื่อเปลี่ยนเพศให้แสดงเพศที่เปลี่ยนออกมา (เราจะใช้ร่วมกับ querySelector ก่อนหน้านี้)
+
+```html
+    <input type="radio" name="gender" value="male" onchange="changeGender()"> male
+    <input type="radio" name="gender" value="female" onchange="changeGender()"> female
+
+    <script>
+        function changeGender() {
+            let genderInputs = document.querySelectorAll('input[name=gender]')
+            let gender = ''
+
+            //ใช้ for เพื่อวนเข้าถึงข้อมูล เพราะ querySelectorAll จะได้ของออกมาเป็น array
+            for (let index = 0; index < genderInputs.length; index++) {
+                //if check ว่าใครถูกติ้ก ถ้าถูกติ้ก ก็จะเอาไปเก็บที่ gender
+                if (genderInputs[index].checked) {
+                    gender = genderInputs[index].value
+                } 
+            }
+
+            console.log('selected gender', gender) //ดูค่า
+        }
+    </script>
+```
+
+## 3. onkeydown, onkeyup, onkeypress
+* onkeydown = เมื่อ user กดลงบน keyboard (จังหวะกด)
+* onkeyup = เมื่อ user กดปล่อยมือจากปุ่ม keyboard (จังหวะปล่อยหลังกด) จะได้ค่าที่อัปเดทแล้ว
+* onkeypress = จังหวะที่ตัวอักษรถูกส่งออกมา (เกิดหลัง onkeydown, เกิดก่อน onkeyup)
+
+*`ตัวอย่าง`* การใช้ 
+
+```html
+<body>
+    first name <input type="text" name="firstname" onkeyup="changeFirstname()">
+    <script>
+        function changeFirstname() {
+            //เข้าถึง input firstname
+            let firstNameDom = document.querySelector('input[name = firstname]')
+            //เอาค่า firstname ออกมา
+            console.log('change first name:', firstNameDom.value)
+        }
+    </script>
+</body>
+```
+
+## 4. onmouseover, onmouseup, onmousedown 
+การดักจับเมื่อ uesr เอาเมาส์ไปวางที่ element html นั้นๆ
+
+* onmouseover เมื่อเมาส์วางอยู่บน element นั้น (หรือตัวลูกของมัน)
+* onmousedown เมื่อคลิกเมาส์ที่ชิ้นนั้น (กำลังคลิก)
+* onmouseup เมื่อปล่อยเมาส์ที่กำลังคลิกนั้นออก
+
+ลำดับที่เกิดขึ้นคือ onmouseover > onmousedown > onmouseup
+
+*`ตัวอย่าง`* การใช้ 
+```html
+    <div 
+    onmouseover="overItem()"
+    onmouseup="upItem()"
+    onmousedown="dowItem()"
+    >click</div>
+
+    <script>
+        function overItem() {
+            console.log('mouse over')
+        }
+
+        function upItem() {
+            console.log('mouse up')
+        }
+
+        function dowItem() {
+            console.log('mouse dow')
+        }
+
+    </script>
+```
+## addEventListener เป็นอีกท่าของ event
+
+* จะได้ผลลัพธ์เหมือน  onclick เลือกใช้ตามที่ถนัด
+
+```html
+<button id="testbutton">ปุ่มที่ 1</button>
+<button onclick="clickButton()">ปุ่มที่ 2</button>
+
+<script>
+document.getElementById('testbutton').addEventListener('click', function() {
+  console.log('คลิกปุ่มที่ 1')
+})
+function clickButton () {
+  console.log('คลิกปุ่มที่ 2')
+}
+</script>
+```
+
+# การเข้าถึงและการ update HTML DOM
+
+**step** การ update HTM 
+
+## 1. ทำการดึงข้อความทั้งหมดของ element นั้นออกมา เพื่ออ่าน
+* หรืออาจจะใช้ดูทค่า DOM ที่ไม่ได้กำหนด value
+
+มีการอ่าน 3 แบบ 
+
+* textContent ทำการดึงข้อความทั้งหมดของ element นั้นออกมา
+* innerText ทำการดึงข้อความ "ที่มองเห็นเท่านั้น" ทั้งหมดของ element นั้นออกมา (ไม่นับพวก display: none ด้วย)
+* innerHTML ทำการดึง html ที่อยู่ภายใต้ element ตัวนั้นทั้งหมดออกมา
+
+```html
+<div id="hello">
+        Hello <span style="display: none;">Mike</span>
+    </div>
+
+    <script>
+        let helloDom = document.getElementById('hello')
+        
+        console.log(helloDom.textContent) //ดึงข้อความทั้งหมดออกมา
+        console.log(helloDom.innerText)   //ดึงข้อความที่ User เห็น
+        console.log(helloDom.innerHTML)   //ดึงมาทั้ง html
+    </script>
+```
+
+## 2. การ update 
+
+*`ตัวอย่าง`*
+
+```html
+    <div id="hello">
+        Hello <span style="display: none;">Mike</span>
+    </div>
+
+    <script>
+        let helloDom = document.getElementById('hello') //เข้าถึง DOM input
+        helloDom.innerHTML ='Hello <b>P</b>' //เขียนข้อความใหม่ทับ DOM เดิม
+        
+        console.log(helloDom.textContent) //ดึงข้อความทั้งหมดออกมา
+        console.log(helloDom.innerText)   //ดึงข้อความที่ User เห็น
+        console.log(helloDom.innerHTML)   //ดึงมาทั้ง html
+    </script>
+```
+แบบซับซ้อนขึ้น
+
+*`ตัวอย่าง`*
+
+```html
+    <div>
+        <h2>Interest</h2>
+        <div id="content">
+            <!--แสดงสิ่งที่ user สนใจ -->
+        </div>
+    </div>
+
+    <input type="checkbox" name="Interest" value="book"> book
+    <input type="checkbox" name="Interest" value="coding"> coding
+    <input type="checkbox" name="Interest" value="cooking"> cooking
+    <input type="checkbox" name="Interest" value="sport"> sport
+
+    <button onclick="submitInterest()">submit</button>
+
+    <script>
+        function submitInterest () {
+            //เลือกไปยัง checkbox ทั้งหมด
+            let interestDom = document.querySelectorAll('input[name = Interest]')
+            let contentHTML = '<ul>'
+
+            for (let index = 0; index < interestDom.length; index++) {
+                //if เอาต่า value ออกมาเฉพาะตัวที่เลือก 
+                if (interestDom[index].checked) {
+                    contentHTML += '<li>' + interestDom[index].value + '</li>' 
+                    //มัดรวมก้อนนนี้ไปต่อ contentHTML
+                } 
+            }
+            //วนค่าตัวที่เลือก ใส่ html กลับไป
+            contentHTML += '</ul>' //จะได้ List ออกมา
+
+            //ใส่ html กลับเข้าไป
+            let contentDom = document.getElementById('content') //เข้าถึง div id="content"
+            contentDom.innerHTML = contentHTML //เอา list ที่ได้ใส่กลับเข้าไป
+        }
+    </script>
+```
+
+# การอ่านและอัพเดท Attribute ลง html element
+* ใช้ ```getAttribute('')``` เพื่อเข้าถึง
+* ใช้ ```setAttribute(' ' , ' ')``` เพื่ออัพเดท
+
+*`ตัวอย่าง`* การ get, set
+
+```html
+    <a id="thislink" href="https://google.com" target="_blank">Google</a>
+
+    <script>
+        //let thislinkDom = document.getElementById('thislink')
+        let thislinkDom = document.querySelector('#thislink')
+
+        //ดูข้อมูลใน att ต่างๆ
+        console.log(thislinkDom.getAttribute('id')) 
+        console.log(thislinkDom.getAttribute('href'))
+        console.log(thislinkDom.getAttribute('target'))
+        
+                                //เปลี่ยนอะไร , เป็นอะไร
+        thislinkDom.setAttribute('href' , 'https://yahoo.com')
+  
+    </script>
+```
+
+*`ตัวอย่าง`* การใช้ get, set กับ button ให้กดแล้วจะ disabled
+
+```html
+    <button id="thisbutton" onclick="submitData()">submit</button>
+
+    <script>
+        function submitData() {
+            let thisbuttonDOM = document.getElementById('thisbutton')
+            thisbuttonDOM.setAttribute('disabled', 'true')
+            //thisbuttonDOM.style.backgroundColor = 'red' //.style จะเปลี่ยน css ได้
+        }
+  
+    </script>
+```
+
+*`ตัวอย่าง`* การใช้ตัวแปร ```even```
+
+* ```even``` เป็นตัวแปรที่ชี้ตัวเองว่าเกิดอะไรขึ้นที่ตัวเอง code สั้นลงและได้ผลลัพธ์เหมือนข้างบน
+
+```html
+    <button onclick="submitData(event)">submit</button>
+
+    <script>
+        function submitData(event) {
+            let thisbuttonDOM = event.target
+            thisbuttonDOM.style.backgroundColor = 'red' 
+            console.log(thisbuttonDOM.style.backgroundColor)
+        }
+  
+    </script>
+```
